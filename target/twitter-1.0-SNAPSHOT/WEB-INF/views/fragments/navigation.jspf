@@ -1,0 +1,8 @@
+<ul>
+    <li>
+        <a href=${pageContext.request.contextPath}/register>Register</a>
+    </li>
+    <li>
+        <a href="${pageContext.request.contextPath}/login">Log in</a>
+    </li>
+</ul>
