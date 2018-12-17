@@ -14,8 +14,7 @@ public class UserDto {
   @NotEmpty(groups = RegistrationAttemptValidationGroup.class)
   private String password;
 
-  // NOTE domyslny regex w tej adnotacji to .*,
-  // co oznacza że validacja przepuszczałaby pusty string.
+  //domyslny regex w tej adnotacji to .*,co oznacza że validacja przepuszczałaby pusty string.
   @Email(regexp = ".+", groups = RegistrationAttemptValidationGroup.class)
   @UniqueEmail(groups = RegistrationAttemptValidationGroup.class)
   private String email;

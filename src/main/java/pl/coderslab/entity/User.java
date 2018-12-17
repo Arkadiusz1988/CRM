@@ -7,6 +7,8 @@ import pl.coderslab.validations.user.LoginAttemptValidationGroup;
 import pl.coderslab.validations.user.ValidLoginAttempt;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 @Entity
@@ -20,12 +22,12 @@ public class User {
 
   @NotEmpty private String password;
 
-  @Transient private String plainTextPassword;
+  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+  // @JsonManagedReference
+  private List<Project> projects = new ArrayList<>();
 
-  private Boolean enabled;
 
-  // NOTE domyslny regex w tej adnotacji to .*,
-  // co oznacza że validacja przepuszczałaby pusty string.
+  // domyslny regex w tej adnotacji to .*,co oznacza że validacja przepuszczałaby pusty string.
   @Email(regexp = ".+")
   private String email;
 
@@ -42,9 +44,7 @@ public class User {
   }
 
   public void setPassword(String password) {
-    // NOTE w przypadku gdy hasło jest pustym stringiem/nullem, funkcja hashpw zadziała i wygeneruje
-    // nie-nullowego hasha
-    // chcemy tego uniknąć:)
+    // w przypadku gdy hasło jest pustym stringiem/nullem, funkcja hashpw zadziała i wygeneruje nie-nullowego hasha
     this.password =
         password == null || password.isEmpty()
             ? password
@@ -55,13 +55,6 @@ public class User {
     return BCrypt.checkpw(plainTextPassword, this.password);
   }
 
-  public Boolean getEnabled() {
-    return enabled;
-  }
-
-  public void setEnabled(Boolean enabled) {
-    this.enabled = enabled;
-  }
 
   public String getEmail() {
     return email;
@@ -79,14 +72,22 @@ public class User {
     this.id = id;
   }
 
+  public List<Project> getProjects() {
+    return projects;
+  }
+
+  public void setProjects(List<Project> projects) {
+    this.projects = projects;
+  }
+
   @Override
   public String toString() {
     return new StringJoiner(", ", User.class.getSimpleName() + "[", "]")
-        .add("id=" + id)
-        .add("username='" + username + "'")
-        .add("password='" + password + "'")
-        .add("enabled=" + enabled)
-        .add("email='" + email + "'")
-        .toString();
+            .add("id=" + id)
+            .add("username='" + username + "'")
+            .add("password='" + password + "'")
+            .add("projects=' "+ projects + "'")
+            .add("email='" + email + "'")
+            .toString();
   }
 }
