@@ -1,5 +1,7 @@
 package pl.coderslab.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
@@ -22,10 +24,8 @@ public class User {
 
   @NotEmpty private String password;
 
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-  // @JsonManagedReference
+  @ManyToMany(mappedBy = "users",cascade = {CascadeType.ALL})
   private List<Project> projects = new ArrayList<>();
-
 
   // domyslny regex w tej adnotacji to .*,co oznacza że validacja przepuszczałaby pusty string.
   @Email(regexp = ".+")
@@ -90,4 +90,16 @@ public class User {
             .add("email='" + email + "'")
             .toString();
   }
+
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//                "id=" + id +
+//                ", username='" + username + '\'' +
+//                ", password='" + password + '\'' +
+//                ", projects=" + projects +
+//                ", email='" + email + '\'' +
+//                '}';
+//    }
 }

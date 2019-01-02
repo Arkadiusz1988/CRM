@@ -13,5 +13,14 @@
 </head>
 <body>
 Hello ${user.username}
+<br>
+<a href="http://localhost:8080/project/addPro">Dodaj projekt</a><br>
+
+<%--<a href="http://localhost:8080/task/showAllTaskOfProject">Wyświetl liste zadan do swojego projektu</a><br>--%>
+
+<a href="http://localhost:8080/project/showAllProjectOfUser">Wyświetl liste twoich projektow</a><br>
+
+<a href="http://localhost:8080/logout">Wyloguj sie</a><br>
+
 </body>
 </html>
