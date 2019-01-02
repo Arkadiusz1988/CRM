@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import pl.coderslab.controller.UserConverter;
 
 import javax.validation.Validator;
 import java.util.List;
@@ -30,6 +32,17 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     converter.setObjectMapper(objectMapper);
     converters.add(converter);
     super.configureMessageConverters(converters);
+  }
+
+  @Override
+  public void addFormatters(FormatterRegistry registry) {
+    registry.addConverter(getUserConverter());
+
+  }
+
+  @Bean
+  public UserConverter getUserConverter() {
+    return new UserConverter();
   }
 
   @Override
