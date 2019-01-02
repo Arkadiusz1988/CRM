@@ -3,7 +3,7 @@ Used stack:
 - Spring-data-jpa.
 - Hibernate.
 - MySql.
-- JBDC
-- Tomcat Contener
+- Maven repository.
+- Tomcat Contener.
 
 Status - unfinished
