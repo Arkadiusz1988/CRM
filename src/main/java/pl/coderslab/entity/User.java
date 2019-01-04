@@ -91,15 +91,4 @@ public class User {
             .toString();
   }
 
-
-//    @Override
-//    public String toString() {
-//        return "User{" +
-//                "id=" + id +
-//                ", username='" + username + '\'' +
-//                ", password='" + password + '\'' +
-//                ", projects=" + projects +
-//                ", email='" + email + '\'' +
-//                '}';
-//    }
 }

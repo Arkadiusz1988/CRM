@@ -2,11 +2,11 @@ package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.dto.UserDto;
 import pl.coderslab.entity.User;
 import pl.coderslab.repository.UserRepository;
@@ -17,6 +17,7 @@ import pl.coderslab.validations.user.RegistrationAttemptValidationGroup;
 @Controller
 public class UserController {
 
+
   private final AuthService authService;
   private final UserRepository userRepository;
 
@@ -25,12 +26,12 @@ public class UserController {
     this.userRepository = userRepository;
   }
 
+
   @GetMapping
   public String home(Model model) {
     if (!authService.isUserLoggedIn()) {
       return "redirect:/login";
     }
-
     model.addAttribute("user", authService.getUser());
     return "index";
   }
@@ -97,4 +98,5 @@ public class UserController {
     authService.logout();
     return "redirect:/login";
   }
+
 }

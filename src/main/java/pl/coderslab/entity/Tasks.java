@@ -1,13 +1,10 @@
 package pl.coderslab.entity;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Tasks {
@@ -24,7 +21,6 @@ public class Tasks {
     private String description;
 
     @ManyToOne(fetch = FetchType.EAGER)
-   // @JsonIgnore
     private Project project;
 
     public Long getId() {
