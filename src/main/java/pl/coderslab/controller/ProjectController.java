@@ -3,9 +3,11 @@ package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import pl.coderslab.dto.UserDto;
 import pl.coderslab.entity.Project;
 import pl.coderslab.entity.User;
@@ -14,6 +16,7 @@ import pl.coderslab.repository.UserRepository;
 import pl.coderslab.service.AuthService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/project")
@@ -32,7 +35,6 @@ public class ProjectController {
     @GetMapping("/addPro")
     public String addPro(Model model) {
         model.addAttribute("project", new Project());
-       // model.addAttribute("users",userRepository.findAll());
         model.addAttribute("userLogged",authService.getUser().getUsername());
         return "forms/addPro";
     }
@@ -47,7 +49,8 @@ public class ProjectController {
 
     @GetMapping("/showAllProjectOfUser")
     public String showAllprojectOfUsers(Model model){
-        model.addAttribute("projects",projectRepository.findAll());
+        List<Project> projects = projectRepository.findByUsers(authService.getUser());
+        model.addAttribute("projects",projects);
         return "forms/showAllProjectOfUser";
     }
 
@@ -76,6 +79,12 @@ public class ProjectController {
         projectRepository.delete(project);
         return "redirect:/forms/showAllProjectOfUser";
     }
+
+
+//    @PostMapping(value = "/uploadFile")
+//    public String submit(@RequestParam("file") MultipartFile file, ModelMap modelMap) {
+//        return "fileUploadView";
+//    }
 
 //    @GetMapping("/showLast3Pro")
 //    public String showLast3Pro(Model model) {

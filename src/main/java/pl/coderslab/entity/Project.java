@@ -9,9 +9,7 @@ import pl.coderslab.enums.ProjectPrioEnum;
 import pl.coderslab.enums.ProjectStatusEnum;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class Project {
@@ -25,12 +23,14 @@ public class Project {
             name = "project_user",
             joinColumns = @JoinColumn(name = "project_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-   // @JsonManagedReference
     private List<User> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "project",fetch = FetchType.EAGER ,cascade = {CascadeType.ALL})
-   // @JsonIgnore
     private List<Tasks> tasks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "project1",fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+    private Set<UploadFile> uploadFiles = new HashSet<>();
+
 
     @CreationTimestamp
     private Date creationTime;
@@ -102,10 +102,26 @@ public class Project {
         this.description = description;
     }
 
+    public List<Tasks> getTasks() {
+        return tasks;
+    }
 
-    public Project(List<User> users, List<Tasks> tasks, Date creationTime, String name, String description, ProjectPrioEnum projectPrioEnum, ProjectStatusEnum projectStatusEnum) {
+    public void setTasks(List<Tasks> tasks) {
+        this.tasks = tasks;
+    }
+
+    public Set<UploadFile> getUploadFiles() {
+        return uploadFiles;
+    }
+
+    public void setUploadFiles(Set<UploadFile> uploadFiles) {
+        this.uploadFiles = uploadFiles;
+    }
+
+    public Project(List<User> users, List<Tasks> tasks, Set<UploadFile> uploadFiles, Date creationTime, String name, String description, ProjectPrioEnum projectPrioEnum, ProjectStatusEnum projectStatusEnum) {
         this.users = users;
         this.tasks = tasks;
+        this.uploadFiles = uploadFiles;
         this.creationTime = creationTime;
         this.name = name;
         this.description = description;
@@ -130,19 +146,4 @@ public class Project {
                 '}';
     }
 
-
-
-//    @Override
-//    public String toString() {
-//        return new StringJoiner(", ", Project.class.getSimpleName() + "[", "]")
-//                .add("id=" + id)
-//                .add("users='" + users + "'")
-//                .add("tasks='" + tasks + "'")
-//                .add("creationTime=' "+ creationTime + "'")
-//                .add("name='" + name + "'")
-//                .add("description='" + description + "'")
-//                .add("projectPrioEnum='" + projectPrioEnum + "'")
-//                .add("projectStatusEnum='" + projectStatusEnum + "'")
-//                .toString();
-//    }
 }

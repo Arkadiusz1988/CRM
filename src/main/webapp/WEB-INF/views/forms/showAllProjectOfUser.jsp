@@ -14,11 +14,11 @@
             <td><a href="/project/edit/${projects.id}">Edit Project</a></td>
             <td><a href="/project/delete/${projects.id}">Delete Project</a></td>
             <td><a href="/task/showAllTaskOfProjectById/${projects.id}">Wyświetl liste zadan do swojego projektu</a></td><br>
+            <td><a href="/showAllUploadOfProjectById/${projects.id}">Wyświetl liste uplodowanych plikow do projektu</a></td><br>
             <td><a href="/task/addTaskById/${projects.id}">Dodaj zadanie do projektu</a></td><br>
+            <td><a href="/doUpload/${projects.id}">Załaduj pliki do projektu</a></td><br>
         </tr>
     </c:forEach>
 </table>
 </body>
 </html>
-<%--<td><a href="/user/edit/${user.id}">Edit</a></td>--%>
-<%--<td><a href="/user/delete/${user.id}">Delete</a></td>--%>

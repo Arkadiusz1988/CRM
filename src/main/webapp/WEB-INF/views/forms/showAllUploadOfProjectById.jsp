@@ -14,14 +14,11 @@
 </head>
 <body>
 <table>
-    <c:forEach items="${tasks}" var="tasks">
+    <c:forEach items="${uploads}" var="uploads">
         <tr>
-            <td>Task Name: ${tasks.name} </td>
-            <td>Task Description: ${tasks.description} </td>
-            <td>Task Creation Date: ${tasks.date} </td>
+            <td> File Name: ${uploads.fileName} </td>
             <%--<td>Task Owner : ${tasks.project} </td>--%>
-            <td><a href="/task/edit/${tasks.id}">Edit tasks</a></td>
-            <td><a href="/task/delete/${tasks.id}">Delete tasks</a></td>
+            <td><a href="/retrieve/${uploads.id}">Download a file</a></td>
         </tr>
     </c:forEach>
 </table>
