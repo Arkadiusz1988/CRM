@@ -1,9 +1,5 @@
 package pl.coderslab.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import org.hibernate.annotations.CreationTimestamp;
 import pl.coderslab.enums.ProjectPrioEnum;
 import pl.coderslab.enums.ProjectStatusEnum;

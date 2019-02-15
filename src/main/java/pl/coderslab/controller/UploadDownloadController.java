@@ -29,12 +29,13 @@ public class UploadDownloadController {
     private ProjectRepository projectRepository;
 
     @GetMapping("/doUpload/{id}")
-    public String showUploadForm(@PathVariable Long id) {
+    public String showUploadForm(Model model,@PathVariable Long id) {
+        model.addAttribute("id",id);
         return "forms/doUpload";
     }
 
     @PostMapping("/doUpload/{id}")
-    public String handleFileUpload(@RequestParam CommonsMultipartFile[] fileUpload, @PathVariable Long id) throws Exception {
+    public String handleFileUpload(@RequestParam CommonsMultipartFile[] fileUpload, @RequestParam("id") Long id) throws Exception {
 
         if (fileUpload != null && fileUpload.length > 0) {
             for (CommonsMultipartFile aFile : fileUpload){
